@@ -24,7 +24,7 @@ builder.Services.AddTransient<IBaseCommandRepository<Movimento>, MovimentoComman
 
 builder.Services.AddTransient<IContaCorrenteQueryRepository, ContaCorrenteQueryRepository>();
 builder.Services.AddTransient<IBaseQueryRepository<Idempotencia>, IdempotenciaQueryRepository>();
-builder.Services.AddTransient<IMovimentoQueryRepository, MovimentoQueryRepository>();
+builder.Services.AddTransient<IBaseQueryRepository<Movimento>, MovimentoQueryRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

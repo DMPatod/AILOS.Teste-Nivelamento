@@ -45,5 +45,25 @@ WHERE numero = @numero
             var query = await connection.QueryAsync<ContaCorrente>(sql, paramerters);
             return query.FirstOrDefault();
         }
+
+        public async Task<double> ConsultarSaldoAsync(string id, CancellationToken cancellationToken)
+        {
+            using var connection = new SqliteConnection(databaseConfig.Name);
+
+            var sql = @"
+SELECT
+    SUM(CASE WHEN tipomovimento = 'C' THEN valor ELSE 0 END) - SUM(CASE WHEN tipomovimento = 'D' THEN valor ELSE 0 END)
+FROM
+    movimento
+WHERE
+    idcontacorrente = @id
+";
+            var parameters = new
+            {
+                id
+            };
+            var query = await connection.QuerySingleAsync<double>(sql, parameters);
+            return query;
+        }
     }
 }

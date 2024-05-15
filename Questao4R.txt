@@ -1,0 +1,25 @@
+WITH filtroOcorrencia as (
+  SELECT 
+    Id, 
+    assunto, 
+    ano, 
+    COUNT(*) as ocorrencias 
+  FROM 
+    atendimentos 
+  GROUP BY 
+    assunto, 
+    ano 
+  HAVING 
+    COUNT(*) > 3
+) 
+SELECT 
+  a.Id, 
+  a.ano, 
+  fo.ocorrencias 
+FROM 
+  atendimentos a 
+  JOIN filtroOcorrencia fo ON a.assunto = fo.assunto 
+  and a.ano = fo.ano 
+ORDER BY 
+  a.ano DESC, 
+  fo.ocorrencias DESC
